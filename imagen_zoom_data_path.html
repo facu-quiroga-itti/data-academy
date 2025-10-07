@@ -43,7 +43,7 @@
             display: block;
             transform-origin: 0 0;
             transition: transform 0.2s ease-in-out;
-            touch-action: none; /* Evita el comportamiento de zoom predeterminado en dispositivos móviles */
+            touch-action: none;
         }
 
         .controls {
@@ -65,20 +65,20 @@
             background-color: #ddd;
         }
 
-        /* Estilos para arrastre en móviles */
         .zoom-container.is-dragging {
             cursor: grabbing;
         }
     </style>
 </head>
 <body>
-
     <div class="container">
         <h1>Ruta Data-Driven</h1>
         <p>Utiliza los botones de zoom o la rueda del ratón para acercar y alejar. Haz clic y arrastra para mover la imagen.</p>
+        
         <div class="zoom-container">
-            <img id="zoomableImage" src="https://drive.usercontent.google.com/download?id=1xcgJQfdZWlorvMs_IjeQYQpaa89Hefjz&export=view&authuser=0" alt="Ruta Data-Driven con detalles de los módulos">
+            <img id="zoomableImage" src="https://drive.google.com/uc?export=view&id=1xcgJQfdZWlorvMs_IjeQYQpaa89Hefjz" alt="Ruta Data-Driven con detalles de los módulos">
         </div>
+
         <div class="controls">
             <button onclick="zoomIn()">+</button>
             <button onclick="zoomOut()">-</button>
@@ -119,7 +119,6 @@
             applyTransform();
         }
 
-        // Pan y arrastre
         let isDragging = false;
         let startX, startY;
         let startTranslateX, startTranslateY;
@@ -152,23 +151,18 @@
             }
         });
 
-        // Zoom con la rueda del ratón
         container.addEventListener('wheel', (e) => {
             e.preventDefault();
             const rect = container.getBoundingClientRect();
             const mouseX = e.clientX - rect.left;
             const mouseY = e.clientY - rect.top;
-
             const oldScale = scale;
             const delta = e.deltaY < 0 ? 0.2 : -0.2;
             scale = Math.max(1, Math.min(3, scale + delta));
-
             const newMouseX = (mouseX / oldScale) * scale;
             const newMouseY = (mouseY / oldScale) * scale;
-
             translateX = translateX + ((mouseX / oldScale) - (newMouseX / scale));
             translateY = translateY + ((mouseY / oldScale) - (newMouseY / scale));
-
             if (scale === 1) {
                 translateX = 0;
                 translateY = 0;
@@ -176,7 +170,6 @@
             applyTransform();
         });
 
-        // Funcionalidad táctil para dispositivos móviles
         let touchStart = {};
 
         img.addEventListener('touchstart', (e) => {
@@ -203,19 +196,15 @@
                 const distance = getPinchDistance(e.touches);
                 const deltaScale = (distance - touchStart.distance) * 0.005;
                 const newScale = Math.max(1, Math.min(3, scale + deltaScale));
-                
                 const pinchCenterX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
                 const pinchCenterY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
                 const rect = img.getBoundingClientRect();
                 const mouseX = pinchCenterX - rect.left;
                 const mouseY = pinchCenterY - rect.top;
-
                 const newMouseX = (mouseX / scale) * newScale;
                 const newMouseY = (mouseY / scale) * newScale;
-
                 translateX = translateX + ((mouseX / scale) - (newMouseX / newScale));
                 translateY = translateY + ((mouseY / scale) - (newMouseY / newScale));
-
                 scale = newScale;
                 applyTransform();
             }
@@ -230,7 +219,6 @@
             const dy = touches[0].clientY - touches[1].clientY;
             return Math.sqrt(dx * dx + dy * dy);
         }
-
     </script>
 </body>
 </html>
