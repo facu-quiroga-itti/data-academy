@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imagen con Zoom y Pan</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 10px;
+            padding: 0;
+            background-color: transparent; /* Fondo del body transparente */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -16,12 +18,12 @@
         }
 
         .container {
-            width: 100%;
+            width: 90%;
             max-width: 1000px;
-            background-color: white;
-            padding: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            border-radius: 8px;
+            background-color: transparent; /* Fondo del contenedor principal transparente */
+            padding: 0;
+            box-shadow: none; /* Sin sombra */
+            border-radius: 0;
             text-align: center;
         }
 
@@ -29,9 +31,9 @@
             overflow: hidden;
             width: 100%;
             max-width: 800px;
-            margin: 20px auto;
-            border: 1px solid #ccc;
-            background-color: #f9f9f9;
+            margin: 0 auto;
+            border: none; /* Sin borde */
+            background-color: transparent; /* Fondo del contenedor de zoom transparente */
             cursor: grab;
         }
 
@@ -69,6 +71,8 @@
     </style>
 </head>
 <body>
+    <div class="container">
+        <div class="zoom-container">
             <img id="zoomableImage" src="data path.png" alt="Ruta Data-Driven con detalles de los módulos">
         </div>
 
